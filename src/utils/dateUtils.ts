@@ -23,6 +23,9 @@ export function getWeekDates(date: Date): Date[] {
   return weekDates;
 }
 
+/**
+ * 특정 월의 모든 주를 요소로 가지는 배열(weeks)을 생성합니다.
+ */
 export function getWeeksAtMonth(currentDate: Date) {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
@@ -51,10 +54,16 @@ export function getWeeksAtMonth(currentDate: Date) {
   return weeks;
 }
 
+/**
+ * 특정 날짜의 이벤트를 필터링합니다.
+ */
 export function getEventsForDay(events: Event[], date: number): Event[] {
   return events.filter((event) => new Date(event.date).getDate() === date);
 }
 
+/**  
+ * 주어진 날짜를 목요일을 기준으로 주차를 계산해 "YYYY년 M월 W주" 형식으로 반환합니다.
+ */
 export function formatWeek(targetDate: Date) {
   const dayOfWeek = targetDate.getDay();
   const diffToThursday = 4 - dayOfWeek;
@@ -91,10 +100,16 @@ export function isDateInRange(date: Date, rangeStart: Date, rangeEnd: Date): boo
   return date >= rangeStart && date <= rangeEnd;
 }
 
+/**
+ * 숫자를 지정된 자릿수의 문자열로 변환합니다.
+ */
 export function fillZero(value: number, size = 2) {
   return String(value).padStart(size, '0');
 }
 
+/**
+ * 현재 날짜를 지정한 날짜의 'YYYY-MM-DD' 형식으로 포맷팅합니다.
+ */
 export function formatDate(currentDate: Date, day?: number) {
   return [
     currentDate.getFullYear(),

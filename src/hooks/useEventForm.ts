@@ -5,7 +5,11 @@ import { getTimeErrorMessage } from '../utils/timeValidation';
 
 type TimeErrorRecord = Record<'startTimeError' | 'endTimeError', string | null>;
 
+/**
+ * 이벤트의 제목, 날짜, 시간, 반복 설정 등 모든 폼 필드의 상태를 관리하고 시간 유효성 검사를 제공하는 커스텀 훅
+ */
 export const useEventForm = (initialEvent?: Event) => {
+
   const [title, setTitle] = useState(initialEvent?.title || '');
   const [date, setDate] = useState(initialEvent?.date || '');
   const [startTime, setStartTime] = useState(initialEvent?.startTime || '');
@@ -13,10 +17,12 @@ export const useEventForm = (initialEvent?: Event) => {
   const [description, setDescription] = useState(initialEvent?.description || '');
   const [location, setLocation] = useState(initialEvent?.location || '');
   const [category, setCategory] = useState(initialEvent?.category || '');
+
   const [isRepeating, setIsRepeating] = useState(initialEvent?.repeat.type !== 'none');
   const [repeatType, setRepeatType] = useState<RepeatType>(initialEvent?.repeat.type || 'none');
   const [repeatInterval, setRepeatInterval] = useState(initialEvent?.repeat.interval || 1);
   const [repeatEndDate, setRepeatEndDate] = useState(initialEvent?.repeat.endDate || '');
+
   const [notificationTime, setNotificationTime] = useState(initialEvent?.notificationTime || 10);
 
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -26,12 +32,14 @@ export const useEventForm = (initialEvent?: Event) => {
     endTimeError: null,
   });
 
+  // 시작 시간 변경 핸들러
   const handleStartTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newStartTime = e.target.value;
     setStartTime(newStartTime);
     setTimeError(getTimeErrorMessage(newStartTime, endTime));
   };
 
+  // 종료 시간 변경 핸들러
   const handleEndTimeChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newEndTime = e.target.value;
     setEndTime(newEndTime);

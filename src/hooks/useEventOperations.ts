@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 
 import { Event, EventForm } from '../types';
 
+/**
+ * 이벤트의 조회(GET), 저장(POST), 수정(PUT), 삭제(DELETE) 작업을 처리하고 작업 결과를 토스트 메시지로 알려주는 커스텀 훅
+ */
 export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const [events, setEvents] = useState<Event[]>([]);
   const toast = useToast();
@@ -28,20 +31,14 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
 
   const saveEvent = async (eventData: Event | EventForm) => {
     try {
-      let response;
-      if (editing) {
-        response = await fetch(`/api/events/${(eventData as Event).id}`, {
-          method: 'PUT',
+      const response = await fetch(
+        editing ? `/api/events/${(eventData as Event).id}` : '/api/events',
+        {
+          method: editing ? 'PUT' : 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(eventData),
-        });
-      } else {
-        response = await fetch('/api/events', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(eventData),
-        });
-      }
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to save event');
@@ -49,6 +46,7 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
 
       await fetchEvents();
       onSave?.();
+
       toast({
         title: editing ? '일정이 수정되었습니다.' : '일정이 추가되었습니다.',
         status: 'success',
