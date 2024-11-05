@@ -3,8 +3,15 @@ import { Event } from '../types.ts';
 /**
  * 주어진 년도와 월의 일수를 반환합니다.
  */
-export function getDaysInMonth(year: number, month: number): number {
-  return new Date(year, month, 0).getDate();
+export function getDaysInMonth(year: number, month: number): number | boolean {
+  return isValidMonth(month) ? new Date(year, month, 0).getDate() : false;
+}
+
+/**
+ * 유효한 월인지 여부를 확인합니다.
+ */
+function isValidMonth(month: number): boolean {
+  return Number.isInteger(month) && month >= 1 && month <= 12;
 }
 
 /**
@@ -61,7 +68,7 @@ export function getEventsForDay(events: Event[], date: number): Event[] {
   return events.filter((event) => new Date(event.date).getDate() === date);
 }
 
-/**  
+/**
  * 주어진 날짜를 목요일을 기준으로 주차를 계산해 "YYYY년 M월 W주" 형식으로 반환합니다.
  */
 export function formatWeek(targetDate: Date) {
