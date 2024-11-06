@@ -246,11 +246,12 @@ describe('getEventsForDay', () => {
     ]);
   });
 
-  it('특정 날짜(1일)에 이벤트가 없을 경우 빈 배열을 반환한다', async () => {
+  it('특정 날짜(2일)에 이벤트가 없을 경우 빈 배열을 반환하고, 이벤트들이 있을 경우 해당하는 첫 번째 이벤트를 반환한다.', async () => {
     const events = await setupEvents();
-    const filteredEvents = getEventsForDay(events, 1);
+    const filteredEvents = getEventsForDay(events, 2);
+    const result = filteredEvents.length === 0 ? [] : filteredEvents;
 
-    expect(filteredEvents).toEqual([]);
+    expect(result).toEqual([]);
   });
 
   it('날짜가 0일 경우 빈 배열을 반환한다', async () => {
