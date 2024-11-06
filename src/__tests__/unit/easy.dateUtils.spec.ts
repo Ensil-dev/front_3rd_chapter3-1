@@ -12,32 +12,44 @@ import {
 } from '../../utils/dateUtils';
 
 describe('getDaysInMonth', () => {
-  it('1월은 31일 수를 반환한다', () => {
-    expect(getDaysInMonth(2024, 1)).toEqual(31);
+  describe('일반적인 월의 일수', () => {
+    it('31일이 있는 월을 정확히 처리한다', () => {
+      expect(getDaysInMonth(2024, 3)).toBe(31);
+      expect(getDaysInMonth(2024, 8)).toBe(31);
+    });
+
+    it('30일이 있는 월을 정확히 처리한다', () => {
+      expect(getDaysInMonth(2024, 6)).toBe(30);
+      expect(getDaysInMonth(2024, 9)).toBe(30);
+    });
   });
 
-  it('4월은 30일 일수를 반환한다', () => {
-    expect(getDaysInMonth(2024, 4)).toEqual(30);
+  describe('2월 특수 케이스', () => {
+    it('윤년의 2월은 29일이다', () => {
+      expect(getDaysInMonth(2020, 2)).toBe(29);
+      expect(getDaysInMonth(2024, 2)).toBe(29);
+    });
+
+    it('평년의 2월은 28일이다', () => {
+      expect(getDaysInMonth(2021, 2)).toBe(28);
+      expect(getDaysInMonth(2023, 2)).toBe(28);
+    });
   });
 
-  it('윤년의 2월에 대해 29일을 반환한다', () => {
-    expect(getDaysInMonth(2020, 2)).toEqual(29);
-  });
-
-  it('평년의 2월에 대해 28일을 반환한다', () => {
-    expect(getDaysInMonth(2021, 2)).toEqual(28);
-  });
-
-  it('유효하지 않은 월에 대해 적절히 처리한다', () => {
-    expect(getDaysInMonth(2021, 22)).toEqual(false);
+  describe('예외 처리', () => {
+    it('유효하지 않은 월에 대해 false를 반환한다', () => {
+      expect(getDaysInMonth(2024, 0)).toBe(false); // 0월
+      expect(getDaysInMonth(2024, 13)).toBe(false); // 13월
+      expect(getDaysInMonth(2024, -1)).toBe(false); // 음수 월
+    });
   });
 });
 
 describe('getWeekDates', () => {
   it('주중의 날짜(수요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
-    const wednesdayDate = new Date('2024-11-06');
+    const targetWednesday = new Date('2024-11-06');
 
-    expect(getWeekDates(wednesdayDate)).toEqual([
+    expect(getWeekDates(targetWednesday)).toEqual([
       new Date('2024-11-03'),
       new Date('2024-11-04'),
       new Date('2024-11-05'),
@@ -49,9 +61,9 @@ describe('getWeekDates', () => {
   });
 
   it('주의 시작(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
-    const sundayDate = new Date('2024-10-27');
+    const targetSundayDate = new Date('2024-10-27');
 
-    expect(getWeekDates(sundayDate)).toEqual([
+    expect(getWeekDates(targetSundayDate)).toEqual([
       new Date('2024-10-27'),
       new Date('2024-10-28'),
       new Date('2024-10-29'),
@@ -63,9 +75,9 @@ describe('getWeekDates', () => {
   });
 
   it('주의 끝(토요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
-    const saturdayDate = new Date('2024-11-09');
+    const targetSaturdayDate = new Date('2024-11-09');
 
-    expect(getWeekDates(saturdayDate)).toEqual([
+    expect(getWeekDates(targetSaturdayDate)).toEqual([
       new Date('2024-11-03'),
       new Date('2024-11-04'),
       new Date('2024-11-05'),
@@ -77,9 +89,9 @@ describe('getWeekDates', () => {
   });
 
   it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연말)', () => {
-    const lastDay = new Date('2024-12-31');
+    const newYearsEve = new Date('2024-12-31');
 
-    expect(getWeekDates(lastDay)).toEqual([
+    expect(getWeekDates(newYearsEve)).toEqual([
       new Date('2024-12-29'),
       new Date('2024-12-30'),
       new Date('2024-12-31'),
@@ -91,9 +103,9 @@ describe('getWeekDates', () => {
   });
 
   it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연초)', () => {
-    const firstDay = new Date('2025-01-01');
+    const newYearsDay = new Date('2025-01-01');
 
-    expect(getWeekDates(firstDay)).toEqual([
+    expect(getWeekDates(newYearsDay)).toEqual([
       new Date('2024-12-29'),
       new Date('2024-12-30'),
       new Date('2024-12-31'),
@@ -119,9 +131,9 @@ describe('getWeekDates', () => {
   });
 
   it('월의 마지막 날짜를 포함한 주를 올바르게 처리한다', () => {
-    const lastMonthDay = new Date('2024-10-31');
+    const targetLastMonthDay = new Date('2024-10-31');
 
-    expect(getWeekDates(lastMonthDay)).toEqual([
+    expect(getWeekDates(targetLastMonthDay)).toEqual([
       new Date('2024-10-27'),
       new Date('2024-10-28'),
       new Date('2024-10-29'),
