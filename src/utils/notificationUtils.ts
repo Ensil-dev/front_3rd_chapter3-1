@@ -13,6 +13,7 @@ export function getUpcomingEvents(events: Event[], now: Date, notifiedEvents: st
     return (
       timeDiff > 0 && // 아직 시작하지 않은 이벤트
       timeDiff <= event.notificationTime && // 알림 시간 이내
+      timeDiff >= event.notificationTime && // 알림 시간 초과하지 않음
       !notifiedEvents.includes(event.id) // 아직 알림을 보내지 않은 이벤트
     );
   });
