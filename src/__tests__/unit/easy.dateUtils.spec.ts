@@ -38,9 +38,9 @@ describe('getDaysInMonth', () => {
 
   describe('예외 처리', () => {
     it('유효하지 않은 월에 대해 false를 반환한다', () => {
-      expect(getDaysInMonth(2024, 0)).toBe(false); // 0월
-      expect(getDaysInMonth(2024, 13)).toBe(false); // 13월
-      expect(getDaysInMonth(2024, -1)).toBe(false); // 음수 월
+      expect(getDaysInMonth(2024, 0)).toBe(0); // 0월
+      expect(getDaysInMonth(2024, 13)).toBe(0); // 13월
+      expect(getDaysInMonth(2024, -1)).toBe(0); // 음수 월
     });
   });
 });
@@ -146,7 +146,16 @@ describe('getWeekDates', () => {
 });
 
 describe('getWeeksAtMonth', () => {
-  it('2024년 7월 1일의 올바른 주 정보를 반환해야 한다', () => {});
+  it('2024년 7월 1일의 올바른 주 정보를 반환해야 한다', () => {
+    const targetDate = new Date('2024-07-01');
+    expect(getWeeksAtMonth(targetDate)).toEqual([
+      [null, 1, 2, 3, 4, 5, 6],
+      [7, 8, 9, 10, 11, 12, 13],
+      [14, 15, 16, 17, 18, 19, 20],
+      [21, 22, 23, 24, 25, 26, 27],
+      [28, 29, 30, 31, null, null, null],
+    ]);
+  });
 });
 
 describe('getEventsForDay', () => {

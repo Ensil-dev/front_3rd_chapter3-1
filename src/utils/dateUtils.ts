@@ -2,9 +2,10 @@ import { Event } from '../types.ts';
 
 /**
  * 주어진 년도와 월의 일수를 반환합니다.
+ * 유효하지 않을 월일 경우 0을 반환합니다.
  */
-export function getDaysInMonth(year: number, month: number): number | boolean {
-  return isValidMonth(month) ? new Date(year, month, 0).getDate() : false;
+export function getDaysInMonth(year: number, month: number): number {
+  return isValidMonth(month) ? new Date(year, month, 0).getDate() : 0;
 }
 
 /**
