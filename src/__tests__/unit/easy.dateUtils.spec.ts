@@ -1,6 +1,3 @@
-import { renderHook, waitFor } from '@testing-library/react';
-
-import { useEventOperations } from '../../hooks/useEventOperations';
 import {
   formatDate,
   formatWeek,
@@ -12,6 +9,7 @@ import {
   isDateInRange,
   fillZero,
 } from '../../utils/dateUtils';
+import { setupEvents } from '../utils';
 
 describe('formatDate', () => {
   describe('월(Month)이 한 자리 수일 때 앞에 0을 붙여 포맷팅한다', () => {
@@ -227,18 +225,6 @@ describe('getWeeksAtMonth', () => {
 });
 
 describe('getEventsForDay', () => {
-  const setupEvents = async () => {
-    const { result } = renderHook(() => useEventOperations(false));
-
-    await waitFor(() => {
-      expect(result.current.events).toBeDefined();
-      expect(Array.isArray(result.current.events)).toBe(true);
-      expect(result.current.events.length).toBeGreaterThan(0);
-    });
-
-    return result.current.events;
-  };
-
   // realEvents.json의 실제 데이터로 테스트
   it('특정 날짜(20일)에 해당하는 이벤트를 정확히 반환한다', async () => {
     const events = await setupEvents();

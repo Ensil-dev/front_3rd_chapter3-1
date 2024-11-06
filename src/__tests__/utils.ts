@@ -1,3 +1,6 @@
+import { renderHook, waitFor } from '@testing-library/react';
+
+import { useEventOperations } from '../hooks/useEventOperations';
 import { fillZero } from '../utils/dateUtils';
 
 export const assertDate = (date1: Date, date2: Date) => {
@@ -9,4 +12,16 @@ export const parseHM = (timestamp: number) => {
   const h = fillZero(date.getHours());
   const m = fillZero(date.getMinutes());
   return `${h}:${m}`;
+};
+
+export const setupEvents = async () => {
+  const { result } = renderHook(() => useEventOperations(false));
+
+  await waitFor(() => {
+    expect(result.current.events).toBeDefined();
+    expect(Array.isArray(result.current.events)).toBe(true);
+    expect(result.current.events.length).toBeGreaterThan(0);
+  });
+
+  return result.current.events;
 };
