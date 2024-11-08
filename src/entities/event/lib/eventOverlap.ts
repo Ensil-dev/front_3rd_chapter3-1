@@ -1,4 +1,4 @@
-import { Event, EventForm } from '../types';
+import { Event, EventForm } from '../entities/Event/model/types';
 
 /**
  * 날짜 문자열과 시간 문자열을 조합하여 Date 객체를 생성합니다.

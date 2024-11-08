@@ -1,10 +1,10 @@
-import { Event } from '../../types';
 import {
   convertEventToDateRange,
   findOverlappingEvents,
   isOverlapping,
   parseDateTime,
-} from '../../utils/eventOverlap';
+} from '../../entities/event/lib/eventOverlap';
+import { Event } from '../../entities/event/model/types';
 
 const DEFAULT_DATE = '2024-07-01';
 const DEFAULT_TIME = '14:30';

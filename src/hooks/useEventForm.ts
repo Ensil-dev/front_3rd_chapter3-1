@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from 'react';
 
-import { Event, RepeatType } from '../types';
-import { getTimeErrorMessage } from '../utils/timeValidation';
+import { Event, RepeatType } from '../entities/event/model/types';
+import { getTimeErrorMessage } from '../shared/lib/timeValidation';
 
 type TimeErrorRecord = Record<'startTimeError' | 'endTimeError', string | null>;
 
@@ -9,7 +9,6 @@ type TimeErrorRecord = Record<'startTimeError' | 'endTimeError', string | null>;
  * 이벤트의 제목, 날짜, 시간, 반복 설정 등 모든 폼 필드의 상태를 관리하고 시간 유효성 검사를 제공하는 커스텀 훅
  */
 export const useEventForm = (initialEvent?: Event) => {
-
   const [title, setTitle] = useState(initialEvent?.title || '');
   const [date, setDate] = useState(initialEvent?.date || '');
   const [startTime, setStartTime] = useState(initialEvent?.startTime || '');

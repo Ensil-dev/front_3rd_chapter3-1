@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 
+import { fillZero } from '../entities/calendar/lib/dateUtils';
 import { useEventOperations } from '../hooks/useEventOperations';
-import { fillZero } from '../utils/dateUtils';
 
 export const assertDate = (date1: Date, date2: Date) => {
   expect(date1.toISOString()).toBe(date2.toISOString());

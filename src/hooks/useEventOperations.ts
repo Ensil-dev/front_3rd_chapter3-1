@@ -1,7 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { Event, EventForm } from '../types';
+import { Event, EventForm } from '../entities/event/model/types';
 
 /**
  * 이벤트의 조회(GET), 저장(POST), 수정(PUT), 삭제(DELETE) 작업을 처리하고 작업 결과를 토스트 메시지로 알려주는 커스텀 훅

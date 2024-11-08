@@ -1,8 +1,8 @@
 import { useInterval } from '@chakra-ui/react';
 import { useState } from 'react';
 
-import { Event } from '../types';
-import { createNotificationMessage, getUpcomingEvents } from '../utils/notificationUtils';
+import { Event } from '../entities/event/model/types';
+import { createNotificationMessage, getUpcomingEvents } from '../entities/notification/lib/notificationUtils';
 
 /**
  * 주어진 이벤트 목록을 1초마다 확인하여 알림이 필요한 일정을 찾고 알림을 관리하는 커스텀 훅

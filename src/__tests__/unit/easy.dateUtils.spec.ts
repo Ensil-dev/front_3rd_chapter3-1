@@ -8,7 +8,7 @@ import {
   getEventsForDay,
   isDateInRange,
   fillZero,
-} from '../../utils/dateUtils';
+} from '../../entities/calendar/lib/dateUtils';
 import { setupEvents } from '../utils';
 
 describe('formatDate', () => {

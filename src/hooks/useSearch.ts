@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
-import { Event } from '../types';
-import { getFilteredEvents } from '../utils/eventUtils';
+import { getFilteredEvents } from '../entities/event/lib/eventUtils';
+import { Event } from '../entities/event/model/types';
 
 /**
  * 주어진 이벤트 목록(events)에서 검색어(searchTerm)와 현재 날짜(currentDate)를 기준으로

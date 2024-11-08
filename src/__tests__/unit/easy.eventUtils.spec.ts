@@ -1,4 +1,4 @@
-import { getFilteredEvents } from '../../utils/eventUtils';
+import { getFilteredEvents } from '../../entities/event/lib/eventUtils';
 import { setupEvents } from '../utils';
 
 describe('getFilteredEvents', () => {

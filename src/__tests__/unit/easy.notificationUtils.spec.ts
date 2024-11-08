@@ -1,4 +1,7 @@
-import { createNotificationMessage, getUpcomingEvents } from '../../utils/notificationUtils';
+import {
+  createNotificationMessage,
+  getUpcomingEvents,
+} from '../../entities/notification/lib/notificationUtils';
 import { setupEvents } from '../utils';
 
 describe('getUpcomingEvents', () => {
